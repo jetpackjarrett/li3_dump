@@ -1,7 +1,7 @@
 <?php
 use lithium\data\Connections;
 use lithium\analysis\Logger;
-use li3_debug\util\Debug;
+use li3_dump\util\Dump;
 
 Logger::config(array(
     'default' => array('adapter' => 'File')
@@ -9,12 +9,12 @@ Logger::config(array(
 
 // Filter mongo queries to console
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
-    $Mongo = Connections::get('default');
-    $Mongo->applyFilter('read', function($self, $params, $chain) use (&$Mongo) {
+    $db = Connections::get('default');
+    $db->applyFilter('read', function($self, $params, $chain) use (&$db) {
         $result = $chain->next($self, $params, $chain);
 
         if (method_exists($result, 'data')) {
-            Debug::console(array_filter($params['query']->export($Mongo))
+            Dump::console(array_filter($params['query']->export($db))
                          + array_filter(array('result' => $result->data())));
         }
 

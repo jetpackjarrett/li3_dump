@@ -1,14 +1,14 @@
 <?php
 /**
- * Debug.php
+ * Dump.php
  *
  */
-namespace li3_debug\util;
+namespace li3_dump\util;
 
 use lithium\core\Environment;
 use lithium\template\View;
 
-class Debug {
+class Dump {
 
     static public $console = array();
 
@@ -26,16 +26,16 @@ class Debug {
             if (Environment::get() === 'development') {
                 $view   = new View(array('loader' => 'Simple', 'renderer' => 'Simple'));
                 $script = $view->render(array(
-                    'element' => '<script type="text/javascript">console.info({:json});</script>'),
-                    array('json' => json_encode($data)
+                    'element' => '<script type="text/javascript">console.info({:data});</script>'),
+                    array('data' => json_encode($data))
                 ));
-                Debug::$console[] = $script;
+                Dump::$console[] = $script;
             }
 
             return;
         }
 
-        return implode('', Debug::$console);
+        return implode('', Dump::$console);
     }
 }
 
