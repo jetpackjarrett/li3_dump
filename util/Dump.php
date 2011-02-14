@@ -25,10 +25,10 @@ class Dump {
         if ($data) {
             if (Environment::get() === 'development') {
                 $view   = new View(array('loader' => 'Simple', 'renderer' => 'Simple'));
-                $script = $view->render(array(
-                    'element' => '<script type="text/javascript">console.info({:data});</script>'),
+                $script = $view->render(
+                    array('element' => '<script type="text/javascript">console.info({:data});</script>'),
                     array('data' => json_encode($data))
-                ));
+                );
                 Dump::$console[] = $script;
             }
 
