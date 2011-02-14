@@ -12,7 +12,7 @@ class Dump {
 
     static public $console = array();
 
-    static public function dump($data = null, $label = false) {
+    static public function screen($data = null, $label = false) {
         if (Environment::get() === 'development') {
             echo '<pre class="debug">';
             echo ($label) ? '<h3>' . $label . '</h3>' : '';
